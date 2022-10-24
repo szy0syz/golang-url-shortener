@@ -31,6 +31,11 @@ ok      golang-url-shortener/shortener  1.028s
 ~/development/golang-url-shortener on main! ⌚ 15:30:26
 $ go test ./shortener
 ok      golang-url-shortener/shortener  (cached)
+
+$ go test ./...
+?       golang-url-shortener    [no test files]
+ok      golang-url-shortener/shortener  (cached)
+ok      golang-url-shortener/store      (cached)
 ```
 
 ### Algorithm For Generating a Short Link 🧮
@@ -96,3 +101,9 @@ actual  : "J8XCb24w"
 ```go
 fmt.Sprintf("%d", generatedNumber)
 ```
+
+### Storage Layer
+
+#### context原生包
+
+> 还不知道是啥？
