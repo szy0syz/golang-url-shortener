@@ -20,18 +20,47 @@ go get github.com/labstack/echo/v4
 ```
 
 ![image](https://user-images.githubusercontent.com/10555820/197456971-93c107f9-3886-40f5-8949-8123d21c8bb3.png)
+
+### go test
+
+```go
+~/development/golang-url-shortener on main! ⌚ 15:29:02
+$ go test ./shortener
+ok      golang-url-shortener/shortener  1.028s
+
+~/development/golang-url-shortener on main! ⌚ 15:30:26
+$ go test ./shortener
+ok      golang-url-shortener/shortener  (cached)
+```
+
 ### Algorithm For Generating a Short Link 🧮
 
-- 使用BASE58 (一般似乎见过64)
+#### 大概算法流程
 
-> 发自心内：为啥要用BASE58呢？🤔🤔🤔 这是因为：
+```bash
+[2 25 4 167 87 73 126 226 132 2 131 180 9 .. .. ..]
+
+7379532603781221286
+
+J8XCb24wBXs
+
+J8XCb24w
+```
+
+- Hashing link+userid with sha-256.
+  - 加入userid是为了阻止不同用户提供相同链接却得到相同短链接得问题
+- Get a big int number from the hash bytes generated during the hashing
+  - 1
+
+#### 使用BASE58
+
+> 发自心内：为啥要用BASE58呢？🤔🤔🤔 (一般似乎见过64) 这是因为：
 
 - BASE58对人阅读转换后的字符更加友好！
 - 它会避免出现：`0` (zero), `O` (capital o), `I` (capital i), `l` ( lower L), `+` (plus), and `/` (slash)
-- 原来如此 👍🏻
-- 想想也是，真是Get到点子上了
+- 原来如此 👍🏻 想想也是，真是Get到点子上了
 
-- os.Exit(1)
+#### os.Exit(1)
 
 > 动不动就是知识点回顾 😅
 >
@@ -52,3 +81,18 @@ go get github.com/labstack/echo/v4
 | SIGTERM | 15       | kill pid     | 终止（可以被忽略）   |
 | SIGCHLD | 17       | 子状态变化   | 忽略                 |
 | SIGSTOP | 19       | ctrl + z     | 暂停，不可捕获/忽略  |
+
+#### finalString[:8]
+
+```bash
+expected: "J8XCb24wBXs"
+actual  : "J8XCb24w"
+```
+
+> 取全部或是前8位，其实就是为了短一些URL。
+
+#### Golang中转换字符串
+
+```go
+fmt.Sprintf("%d", generatedNumber)
+```
