@@ -3,6 +3,8 @@ module golang-url-shortener
 go 1.18
 
 require (
+	github.com/itchyny/base58-go v0.2.0 // indirect
+	github.com/jessevdk/go-flags v1.5.0 // indirect
 	github.com/labstack/echo/v4 v4.9.1 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.11 // indirect
