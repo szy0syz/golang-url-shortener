@@ -23,7 +23,7 @@ go get github.com/labstack/echo/v4
 
 ### go test
 
-```go
+```bash
 ~/development/golang-url-shortener on main! ⌚ 15:29:02
 $ go test ./shortener
 ok      golang-url-shortener/shortener  1.028s
@@ -36,6 +36,18 @@ $ go test ./...
 ?       golang-url-shortener    [no test files]
 ok      golang-url-shortener/shortener  (cached)
 ok      golang-url-shortener/store      (cached)
+
+curl -X GET http://localhost:1234
+{"message":"Welcome to Go URL Shortener with Redis 🚀"}
+
+curl -X POST http://localhost:1234/encode \
+-H 'Content-Type: application/json' \
+-d '{"long_url": "https://github.com/szy0syz", "user_id": "UwQPr3aIf9"}'
+
+# -> {"short_url":"http://localhost:1234/W7CBFifH"}
+
+curl -X GET http://localhost:1234/decode/W7CBFifH
+# -> {"long_url":"https://github.com/szy0syz","short_url":"http://localhost:1234/W7CBFifH"}
 ```
 
 ### Algorithm For Generating a Short Link 🧮
